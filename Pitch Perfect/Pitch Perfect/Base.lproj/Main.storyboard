@@ -43,9 +43,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1019607843" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="139" y="373" width="107" height="21"/>
-                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V3P-Er-KXQ">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -63,9 +60,6 @@
                                 <state key="normal" title="Restart">
                                     <color key="titleColor" red="0.1019607843" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="286" y="462" width="64" height="36"/>
-                                </variation>
                                 <connections>
                                     <action selector="restartAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wie-rL-na3"/>
                                 </connections>
@@ -75,9 +69,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.1019607843" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="164" y="394" width="57" height="21"/>
-                                </variation>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XUG-q9-NTZ">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
@@ -85,9 +76,6 @@
                                 <state key="normal" title="Continue">
                                     <color key="titleColor" red="0.1019607843" green="0.2156862745" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="51" y="485" width="82" height="36"/>
-                                </variation>
                                 <connections>
                                     <action selector="continueAudio:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KPe-Co-Urz"/>
                                 </connections>
@@ -121,16 +109,16 @@
                                 <exclude reference="XUG-q9-NTZ"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="mVZ-zC-mBa"/>
-                                <exclude reference="n5y-qe-Mku"/>
-                                <exclude reference="Pdj-vv-YzN"/>
-                                <exclude reference="qTc-Qh-K59"/>
                                 <exclude reference="9D4-pE-m4J"/>
-                                <exclude reference="5LI-1h-qNQ"/>
                                 <exclude reference="O42-pG-av4"/>
                                 <exclude reference="fRM-GN-ksL"/>
                                 <exclude reference="GDG-nv-Bhh"/>
                                 <exclude reference="Yns-PG-EGn"/>
+                                <exclude reference="mVZ-zC-mBa"/>
+                                <exclude reference="n5y-qe-Mku"/>
+                                <exclude reference="Pdj-vv-YzN"/>
+                                <exclude reference="qTc-Qh-K59"/>
+                                <exclude reference="5LI-1h-qNQ"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
@@ -142,16 +130,16 @@
                                 <include reference="XUG-q9-NTZ"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="mVZ-zC-mBa"/>
-                                <include reference="n5y-qe-Mku"/>
-                                <include reference="Pdj-vv-YzN"/>
-                                <include reference="qTc-Qh-K59"/>
                                 <include reference="9D4-pE-m4J"/>
-                                <include reference="5LI-1h-qNQ"/>
                                 <include reference="O42-pG-av4"/>
                                 <include reference="fRM-GN-ksL"/>
                                 <include reference="GDG-nv-Bhh"/>
                                 <include reference="Yns-PG-EGn"/>
+                                <include reference="mVZ-zC-mBa"/>
+                                <include reference="n5y-qe-Mku"/>
+                                <include reference="Pdj-vv-YzN"/>
+                                <include reference="qTc-Qh-K59"/>
+                                <include reference="5LI-1h-qNQ"/>
                             </mask>
                         </variation>
                     </view>

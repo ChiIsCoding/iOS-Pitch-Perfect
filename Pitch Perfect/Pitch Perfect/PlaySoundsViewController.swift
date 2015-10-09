@@ -14,24 +14,27 @@ class PlaySoundsViewController: UIViewController {
     var receivedAudio: RecordedAudio!
     var audioFile: AVAudioFile!
     var audioPlayerNode: AVAudioPlayerNode!
-    var engine: AVAudioEngine!
+    lazy var engine = AVAudioEngine()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do {
+            audioFile = try AVAudioFile(forReading: receivedAudio.filePathUrl)
+        } catch {
+            print("Cannot find audio to play")
+        }
 
-        engine = AVAudioEngine()
-        audioFile = try! AVAudioFile(forReading: receivedAudio.filePathUrl)
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    func playSoundEffects(audioEffectValue: Float, audioEffectType: String) {
+    private func playSoundEffects(audioEffectValue: Float, audioEffectType: String) {
+        // Connect audio player node and audio effect node to audio engine
         audioPlayerNode = AVAudioPlayerNode()
-        engine.stop()
-        engine.reset()
+        
+        if engine.running {
+            engine.stop()
+            engine.reset()
+        }
         
         engine.attachNode(audioPlayerNode)
         
@@ -46,10 +49,16 @@ class PlaySoundsViewController: UIViewController {
         engine.connect(audioPlayerNode, to: audioEffect, format: nil)
         engine.connect(audioEffect, to: engine.outputNode, format: nil)
         
+        // Prepare and play audio
         audioPlayerNode.scheduleFile(audioFile, atTime: nil, completionHandler: nil)
-        try! engine.start()
         
-        audioPlayerNode.play()
+        do {
+            try engine.start()
+            audioPlayerNode.play()
+        } catch {
+            print("Cannot start audio player")
+        }
+        
     }
     
     @IBAction func playSlowAudio(sender: UIButton) {
@@ -69,19 +78,16 @@ class PlaySoundsViewController: UIViewController {
     }
     
     @IBAction func stopAudio(sender: UIButton) {
-        audioPlayerNode.stop()
-        engine.stop()
-        engine.reset()
-    }
-    
-    /*
-    // MARK: - Navigation
+        
+        if audioPlayerNode.playing {
+            audioPlayerNode.stop()
+        }
+        
+        if engine.running {
+            engine.stop()
+            engine.reset()
+        }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
     }
-    */
 
 }
