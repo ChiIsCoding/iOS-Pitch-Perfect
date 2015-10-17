@@ -19,20 +19,20 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var restartButton: UIButton!
     @IBOutlet weak var paused: UILabel!
+    private var isRestarted: Bool = false
     
     var audioRecorder: AVAudioRecorder!
     var recordedAudio: RecordedAudio!
     
     // Enum of UI states (after hitting different buttons)
-    private enum UIState {
+    private enum RecorderState {
         case Stopped
         case Recording
         case Paused
-        case Restarted
     }
     
     // recording state represents one case of UI states
-    private var recordingState = UIState.Stopped {
+    private var recordingState = RecorderState.Stopped {
         didSet {
             updateUIButtons()
             }
@@ -67,15 +67,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             tapToRecord.hidden = true
             recordingInProcess.hidden = true
             paused.hidden = false
-        case .Restarted:
-            stopButton.hidden = true
-            recordButton.enabled = true
-            pauseButton.hidden = true
-            continueButton.hidden = true
-            restartButton.hidden = true
-            tapToRecord.hidden = false
-            recordingInProcess.hidden = true
-            paused.hidden = true
         }
     }
 
@@ -99,7 +90,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         do {
             try session.setCategory(AVAudioSessionCategoryPlayAndRecord)
         } catch {
-            print("Cannot set audio recorder session")
+            NSLog("session.setCategory failed. Cannot set audio recorder session")
         }
         
         // initialize and prepare the recorder
@@ -110,13 +101,13 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             audioRecorder.prepareToRecord()
             audioRecorder.record()
         } catch {
-            print("Cannot initialize recorder with path")
+            NSLog("Cannot initialize recorder with path \(filePath)")
         }
     }
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
         if flag {
-            if recordingState == .Stopped {
+            if !isRestarted {
 
                 recordedAudio = RecordedAudio(filePathUrl: recorder.url, title: recorder.url.lastPathComponent)
                 
@@ -124,10 +115,10 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
                 self.performSegueWithIdentifier("stopRecording", sender: recordedAudio)
                 
             } else {
-                // Do not perform any action here (hit restart button case)
+                isRestarted = false
             }
         } else {
-            print("Recording was not successful!")
+            NSLog("Recording was not successful!")
             recordingState = .Stopped
         }
     }
@@ -151,7 +142,8 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     }
     
     @IBAction func restartAudio(sender: UIButton) {
-        recordingState = .Restarted
+        recordingState = .Stopped
+        isRestarted = true
         audioRecorder.stop()
         
         // release audio session
@@ -171,7 +163,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
             let audioSession = AVAudioSession.sharedInstance()
             try audioSession.setActive(false)
         } catch {
-            print("Cannot release audio session")
+            NSLog("Cannot release audio session")
         }
     }
 }
