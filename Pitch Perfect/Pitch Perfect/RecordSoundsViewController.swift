@@ -73,6 +73,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        isRestarted = false
         recordingState = .Stopped
     }
 
